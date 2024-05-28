@@ -10,6 +10,6 @@ setup(
     author="Ana Cristina Gonzalez-Sanchez",
     author_email="ana.cristina.gonzalez.sanchez@ki.se",
     description="Functions for excel file manipulation and descriptive stats plots",
-    url="https://github.com/anacristina0914/FunCode",
+    url="https://github.com/anacristina0914/FunCode", #URL github
 )
 
