@@ -6,7 +6,7 @@ setup(
     packages=find_packages(),
     install_requires=["pandas", "matplotlib",
                       "numpy", "pykeepass", "openpyxl",
-                      "msoffcrypto-tool",],
+                      "msoffcrypto-tool", "pytest",],
     author="Ana Cristina Gonzalez-Sanchez",
     author_email="ana.cristina.gonzalez.sanchez@ki.se",
     description="Functions for excel file manipulation and descriptive stats plots",
