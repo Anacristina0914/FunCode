@@ -7,8 +7,8 @@ on:
 
 jobs:
   test:
-  runs-on: ubuntu-latest
-  steps:
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout repository
         uses: actions/setup-python@v2
         with:
