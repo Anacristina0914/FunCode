@@ -181,7 +181,6 @@ def rename_columns(df: pd.DataFrame, eq_dic:dict) -> pd.DataFrame:
     Args:
         df (pd.DataFrame): Pandas dataframe, must contain column names.
         eq_dic (dict): equivalence of columns to be renames in the format
-        old_colname: new_colname.
 
     Returns:
         pd.DataFrame: Pandas data frame with renamed column names.
@@ -205,14 +204,14 @@ def sex_from_pn(number:Union[str,int]) -> str:
         return "Kvinna"
     else:
         return "Man"
-        
-def apply_sex_from_pn(df: pd.DataFrame, col_name: str, function = sex_from_pn) -> pd.DataFrame:
+
+def apply_row_by_row(df: pd.DataFrame, col_name: str, function) -> pd.DataFrame:
     """Function used to apply a function row-by-row in a dataframe.
 
     Args:
         df (pd.DataFrame): Data Frame where function is to be applied.
         col_name (str): column name where function is to be applied.
-        function (_type_, optional): Function name to be applied. Defaults to sex_from_pn.
+        function (function): Function name to be applied.
 
     Returns:
         pd.DataFrame: Dataframe where function has been applied in all rows of col_name.
