@@ -52,6 +52,8 @@ def plot_plate_positions(df:pd.DataFrame, plate:str, dot_size:int, save_path:Pat
     plt.savefig(os.path.join(save_path, save_filename))
     plt.close()
     
+    return plt
+
 def make_barplot_sample_dist(df:pd.DataFrame, group_col:str, plot_title:str, y_axis_title:str,
         x_axis_title:str, fig_size:tuple=(8,6), cmap_name:str="tab10", keep_xlabs:bool=True) -> object:
     """Make a barplot with sample distributions, how many patients and how many controls we have in the dataframe
