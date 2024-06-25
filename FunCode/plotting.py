@@ -52,22 +52,22 @@ def plot_plate_positions(df:pd.DataFrame, plate:str, dot_size:int, save_path:Pat
     plt.savefig(os.path.join(save_path, save_filename))
     plt.close()
     
-    def make_barplot_sample_dist(df:pd.DataFrame, group_col:str, plot_title:str, y_axis_title:str,
-                            x_axis_title:str, fig_size:tuple=(8,6), cmap_name:str="tab10", keep_xlabs:bool=True) -> object:
-        """Make a barplot with sample distributions, how many patients and how many controls we have in the dataframe
+def make_barplot_sample_dist(df:pd.DataFrame, group_col:str, plot_title:str, y_axis_title:str,
+        x_axis_title:str, fig_size:tuple=(8,6), cmap_name:str="tab10", keep_xlabs:bool=True) -> object:
+    """Make a barplot with sample distributions, how many patients and how many controls we have in the dataframe
 
-        Args:
-            df (pd.DataFrame): Dataframe containing patients and a column with information on patient/controls classification.
-            group_col (str): Column name where group is indicated.
-            plot_title (str): Plot main title.
-            y_axis_title (str): Plot y axis title.
-            x_axis_title (str): Plot x axis title.
-            fig_size (tuple, optional): Figure size. Defaults to (8,6).
-            cmap_name (str): cmap name to color bars.
+    Args:
+        df (pd.DataFrame): Dataframe containing patients and a column with information on patient/controls classification.
+        group_col (str): Column name where group is indicated.
+        plot_title (str): Plot main title.
+        y_axis_title (str): Plot y axis title.
+        x_axis_title (str): Plot x axis title.
+        fig_size (tuple, optional): Figure size. Defaults to (8,6).
+        cmap_name (str): cmap name to color bars.
 
-        Returns:
-            plot: Returns plot.
-        """
+    Returns:
+        plot: Returns plot.
+    """
     values=df[group_col]
     # Get counts
     value_counts=values.value_counts()
@@ -107,23 +107,23 @@ def plot_plate_positions(df:pd.DataFrame, plate:str, dot_size:int, save_path:Pat
     
     return ax
 
-    def make_barplot_sample_dist_twogroups(df:pd.DataFrame, group1:str, group2:str, plot_title:str, y_axis_title:str,
-                            x_axis_title:str, fig_size:tuple=(8,6), cmap_name:str="tab10") -> object:
-        """Make a barplot with sample distributions when we want to present information about two different groups.
+def make_barplot_sample_dist_twogroups(df:pd.DataFrame, group1:str, group2:str, plot_title:str, y_axis_title:str,
+                    x_axis_title:str, fig_size:tuple=(8,6), cmap_name:str="tab10") -> object:
+    """Make a barplot with sample distributions when we want to present information about two different groups.
 
-        Args:
-            df (pd.DataFrame): Dataframe containing information on the two categorical variables to present.
-            group1 (str): Column name where group1 is indicated.
-            group2 (str): Column name where group2 is indeicated.
-            plot_title (str): Plot main title.
-            y_axis_title (str): Plot y axis title.
-            x_axis_title (str): Plot x axis title.
-            fig_size (tuple, optional): Figure size. Defaults to (8,6).
-            cmap_name (str): cmap name for bar colors.
+    Args:
+        df (pd.DataFrame): Dataframe containing information on the two categorical variables to present.
+        group1 (str): Column name where group1 is indicated.
+        group2 (str): Column name where group2 is indeicated.
+        plot_title (str): Plot main title.
+        y_axis_title (str): Plot y axis title.
+        x_axis_title (str): Plot x axis title.
+        fig_size (tuple, optional): Figure size. Defaults to (8,6).
+        cmap_name (str): cmap name for bar colors.
 
-        Returns:
-            plot: Returns plot.
-        """
+    Returns:
+        plot: Returns plot.
+    """
     # Get grouped counts
     grouped_counts=df.groupby([group1, group2]).size().unstack(fill_value=0)
     # Make plot
