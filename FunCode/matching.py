@@ -38,7 +38,8 @@ def find_non_identical_columns(num_row1:int, num_row2:int, df:pd.DataFrame, redu
         combinations (list, optional): Alphabetical combination for excel sheets.
 
     Returns:
-        pd.DataFrame: A pandas dataframe with 5 columns containing the column index, name, excel position, value for first row, and value for second row.
+        - pd.DataFrame: A pandas dataframe with 5 columns containing the column index, name, excel position, value for first row, and value for second row.
+        - pd.DataFrame: A pandas datadrame with 3 columns containing the column index of the original df, column name and excel position.
     """
     non_identical_columns = []
     row1=df.iloc[num_row1]
@@ -204,6 +205,7 @@ def sex_from_pn(number:Union[str,int]) -> str:
         return "Kvinna"
     else:
         return "Man"
+        
 def apply_sex_from_pn(df: pd.DataFrame, col_name: str, function = sex_from_pn) -> pd.DataFrame:
     """Function used to apply a function row-by-row in a dataframe.
 
