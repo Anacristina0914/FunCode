@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 from pathlib import Path
-from FunCode.matching import convert_num_toexcel_col, find_non_identical_columns, sex_from_pn, apply_sex_from_pn, hamming_distance, find_similar_identifiers
+from FunCode.matching import convert_num_toexcel_col, find_non_identical_columns, sex_from_pn, apply_row_by_row, hamming_distance, find_similar_identifiers
 
 # Mock data for testing
 @pytest.fixture
@@ -41,9 +41,9 @@ def test_sex_from_pn_invalid():
     with pytest.raises(AssertionError, match = "8 must contain at least 1 digit"):
         sex_from_pn(8)
 
-def test_apply_sex_from_pn(sample_dataframe):
+def test_apply_row_by_rpw(sample_dataframe):
     sample_dataframe['nummer'] = [1234567860, 1234567891, 1234567802]
-    result = apply_sex_from_pn(sample_dataframe, 'nummer')
+    result = apply_row_by_row(sample_dataframe, 'nummer', sex_from_pn)
     assert isinstance(result, pd.Series)
     assert result.tolist() == ['Kvinna', 'Man', 'Kvinna']  
 
