@@ -190,20 +190,24 @@ def rename_columns(df: pd.DataFrame, eq_dic:dict) -> pd.DataFrame:
 
 def sex_from_pn(number:Union[str,int]) -> str:
     """Function takes a personnummer and extracts the second to last number
-    to infer biological sex.
+    to infer biological sex. If value is NA, the function returns NA.
 
     Args:
         number (Union[str,int]): A number that contains at least 1 digit.
 
     Returns:
-        str: Returns "Kvinna" if digit is even, and "Man" if digit is odd.
+        str: Returns "Kvinna" if digit is even, and "Man" if digit is odd, NA if value is a NA.
     """
     assert len(str(number)) > 1, f"{number} must contain at least 1 digit"
-    second_last_digit=str(number)[-2]
-    if int(second_last_digit) %2 == 0:
-        return "Kvinna"
-    else:
-        return "Man"
+    
+    if pd.isna(number):
+        return number
+    elif ~pd.isna(number):
+        second_last_digit=str(int(number))[-2]   
+        if int(second_last_digit) %2 == 0:
+            return "Kvinna"
+        else:
+            return "Man"
 
 def apply_row_by_row(df: pd.DataFrame, col_name: str, function) -> pd.DataFrame:
     """Function used to apply a function row-by-row in a dataframe.
