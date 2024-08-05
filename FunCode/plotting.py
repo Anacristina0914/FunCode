@@ -116,7 +116,7 @@ def make_barplot_sample_dist_twogroups(df:pd.DataFrame, group1:str, group2:str, 
     Args:
         df (pd.DataFrame): Dataframe containing information on the two categorical variables to present.
         group1 (str): Column name where group1 is indicated.
-        group2 (str): Column name where group2 is indeicated.
+        group2 (str): Column name where group2 is indicated.
         plot_title (str): Plot main title.
         y_axis_title (str): Plot y axis title.
         x_axis_title (str): Plot x axis title.
