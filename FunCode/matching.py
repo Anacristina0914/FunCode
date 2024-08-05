@@ -159,7 +159,7 @@ def read_encrypted_excel(pwd_db_path:Path, pw_file:Path, key_file_path:Path, fil
     return decrypted_db
 
 def map_str_to_value(df: pd.DataFrame, col_names:list, eq_dict: dict) -> pd.DataFrame:
-    """Function takes a pandas data frame, the names of some columns in the dataframe and maps
+    """Function takes a pandas data frame, the names of some columns in the dataframe and maps (inplace)
     values in the columns to values present in the eq_dict.
 
     Args:
@@ -222,4 +222,24 @@ def apply_row_by_row(df: pd.DataFrame, col_name: str, function) -> pd.DataFrame:
     """
     return df[col_name].apply(function)
 
+def reformat_pn_cols(df:pd.DataFrame, PNDate:str, PN4Digits:str, jointcolname:str = "Personnummer", rm_pncols: bool = False) -> pd.DataFrame:
+    """Function reformats PN found in two columns in a dataframe and creates a new columns called "Personnummer" by default with 
+    the format YYYYMMDDXXXX.
 
+    Args:
+        df (pd.DataFrame): Dataframe containing 2 columns for PN. One for birthdate, and another with 4 last digits.
+        PNDate (str): Column name that contains birthdate.
+        PN4Digits (str): Column name that contains 4 last digits.
+        jointcolname (str, optional): Name of new columns that contains . Defaults to "Personnummer".
+        rm_pncols (bool, optional): If set to TRUE the columns PNDate and PN4Digits are removed from the data frame. Defaults to False.
+
+    Returns:
+        pd.DataFrame: Pandas dataframe with a new column containing the reformatted pn.
+    """
+    PN1 = df[PNDate].dt.strftime("%Y%m%d")
+    PN2 = df[PN4Digits].apply(lambda x: '{:04.0f}'.format(x)).str.replace(".", "")
+    df[jointcolname] = PN1 + PN2
+
+    if rm_pncols:
+        df.drop(columns=[PNDate, PN4Digits], inplace=True)
+    return df 
