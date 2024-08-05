@@ -188,12 +188,14 @@ def rename_columns(df: pd.DataFrame, eq_dic:dict) -> pd.DataFrame:
     df.rename(columns=eq_dic, inplace=True)
     return df
 
-def sex_from_pn(number:Union[str,int]) -> str:
+def sex_from_pn(number:Union[str,int], k:str = "Kvinna", m:str = "Man") -> str:
     """Function takes a personnummer and extracts the second to last number
     to infer biological sex. If value is NA, the function returns NA.
 
     Args:
         number (Union[str,int]): A number that contains at least 1 digit.
+        k (str): Name to assign to women. Defaults to "Kvinna".
+        m (str): Name to assign to man. Defaults to "Man".
 
     Returns:
         str: Returns "Kvinna" if digit is even, and "Man" if digit is odd, NA if value is a NA.
@@ -205,22 +207,24 @@ def sex_from_pn(number:Union[str,int]) -> str:
     elif ~pd.isna(number):
         second_last_digit=str(int(number))[-2]   
         if int(second_last_digit) %2 == 0:
-            return "Kvinna"
+            return k
         else:
-            return "Man"
+            return m
 
-def apply_row_by_row(df: pd.DataFrame, col_name: str, function) -> pd.DataFrame:
+def apply_row_by_row(df: pd.DataFrame, col_name: str, function, *args, **kwargs) -> pd.DataFrame:
     """Function used to apply a function row-by-row in a dataframe.
 
     Args:
         df (pd.DataFrame): Data Frame where function is to be applied.
         col_name (str): column name where function is to be applied.
         function (function): Function name to be applied.
+        *args: Positional arguments to pass to the function.
+        **kwargs: Keyword arguments to pass to the function.
 
     Returns:
         pd.DataFrame: Dataframe where function has been applied in all rows of col_name.
     """
-    return df[col_name].apply(function)
+    return df[col_name].apply(lambda x: function(x, *args, **kwargs))
 
 def reformat_pn_cols(df:pd.DataFrame, PNDate:str, PN4Digits:str, jointcolname:str = "Personnummer", rm_pncols: bool = False) -> pd.DataFrame:
     """Function reformats PN found in two columns in a dataframe and creates a new columns called "Personnummer" by default with 
